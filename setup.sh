@@ -60,8 +60,6 @@ instalar_zsh()
 
 instalar_oh_my_zsh()
 {
-    echo 'Se añade explorer a PATH' >> ~/.zshrc
-    echo 'alias explorer="explorer.exe ."' >> ~/.zshrc
     echo '#Se instala oh my zsh'
     sh -c  "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -y
     source ~/.zshrc
@@ -90,19 +88,6 @@ instalar_python_pip_ipython()
     sudo apt install python3 python3-pip ipython3 -y
 }
 
-instalar_pipx()
-{
-    echo '#Se instala pipx'
-    python3 -m pip install --user pipx
-    python3 -m pipx ensurepath
-}
-
-instalar_code()
-{
-    echo '#Se instala VSCode'
-    code .
-}
-
 instalar_pyenv()
 {
     echo '#Se instala pyenv'
@@ -120,9 +105,6 @@ anadir_pyenv_a_path()
     instalar_pyenv_build_components
     source ~/.zshrc
     exec "$SHELL"
-    pyenv install 3.8.5
-    pyenv install 3.9.5
-    pyenv install 3.10.7
     
 }
 
@@ -132,26 +114,6 @@ instalar_pyenv_build_components()
     sudo apt-get update; sudo apt-get install make build-essential libssl-dev zlib1g-dev \
     libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
     libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-}
-
-instalar_poetry()
-{
-    echo '#Se instala Poetry'
-    curl -sSL https://install.python-poetry.org | python3 -
-    salir    
-}
-
-anadir_poetry_a_path()
-{
-    echo '#Se añade Poetry a PATH'
-    echo '#Se añade Poetry a PATH' >> ~/.zshrc
-    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
-    source ~/.zshrc
-    exec "$SHELL"
-    poetry self add poetry-plugin-export
-    poetry config --list
-    poetry config virtualenvs.in-project true
-    poetry config --list
 }
 
 instalar_ssh_server()
@@ -165,44 +127,20 @@ comandos_basicos()
     echo '#Se usan comandos básicos'
     actualizar
     instalar_curl
-    instalar_code
     instalar_screenfetch
-    instalar_aptitude_package_manager
     source ~/.bashrc
+}
+
+git()
+{
     actualizar_git
     configurar_git
 }
 
 comandos_basicos
+#git
 #instalar_zsh
 #instalar_oh_my_zsh
 #instalar_powerlevel_10k
 #instalar_pyenv
 #anadir_pyenv_a_path
-#instalar_poetry
-#anadir_poetry_a_path
-
-
-
-#Para tener el lector de requirements.txt para poetry
-
-#apt-get install python3-venv
-#pipx install poetry-add-requirements.txt
-
-
-
-#Herramientas para trabajar con c y compilar
-
-clonar_ninja(){
-    git clone git@github.com:ninja-build/ninja.git && cd ninja
-    git checkout release
-    cat README.md
-}
-
-instalar_build_essentials(){
-    sudo apt-get install build-essential
-}
-
-instalar_cmake(){
-    sudo apt install cmake
-}
