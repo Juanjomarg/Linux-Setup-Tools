@@ -122,6 +122,11 @@ instalar_ssh_server()
     sudo apt-get install openssh-server -y
 }
 
+descargar_cefpython3()
+{
+    wget "https://onedrive.live.com/download?cid=D3E96F450CFEFC4F&resid=D3E96F450CFEFC4F%213167&authkey=AGhZQf8-jIIKnqQ"
+}
+
 comandos_basicos()
 {
     echo '#Se usan comandos básicos'
