@@ -142,7 +142,8 @@ git()
     configurar_git
 }
 
-comandos_basicos
+#comandos_basicos
+descargar_cefpython3
 #git
 #instalar_zsh
 #instalar_oh_my_zsh
