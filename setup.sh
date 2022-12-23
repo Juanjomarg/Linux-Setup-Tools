@@ -124,7 +124,7 @@ instalar_ssh_server()
 
 descargar_cefpython3()
 {
-    wget "https://onedrive.live.com/download?cid=D3E96F450CFEFC4F&resid=D3E96F450CFEFC4F%213167&authkey=AGhZQf8-jIIKnqQ"
+    wget "https://1drv.ms/u/s!Ak_8_gxFb-nTmF-oN0d9rkMtdCat?e=KXMAJw&download=1"
 }
 
 comandos_basicos()
