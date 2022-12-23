@@ -12,7 +12,25 @@ actualizar()
     sudo apt update -y && sudo apt upgrade -y
 }
 
-instalar_aptitude_package_manager(){
+instalar_curl()
+{
+    echo '#Se instala CURL'
+    sudo apt install curl
+}
+
+instalar_screenfetch()
+{
+    echo '#Se instala Screenfetch'
+    sudo apt-get install screenfetch -y
+}
+
+descargar_cefpython3()
+{
+    google-chrome "https://1drv.ms/u/s!Ak_8_gxFb-nTmF-oN0d9rkMtdCat?e=KXMAJw&download=1"
+}
+
+instalar_aptitude_package_manager()
+{
     echo '#Se instala aptitude'
     sudo apt install aptitude
 }
@@ -24,9 +42,11 @@ actualizar_git()
     sudo add-apt-repository ppa:git-core/ppa -y
     sudo apt-get install git -y
     git --version
+    salir
 }
 
-configurar_git(){
+configurar_git()
+{
     echo '#Se configura git'
     git config --global user.name "Juanjomarg"
     echo '#Se configura el siguiente usuario como usuario de git:'
@@ -42,12 +62,7 @@ configurar_git(){
     ssh-add ~/.ssh/id_ed25519
     echo '############# Copie la siguiente clave y péguela en GitHub #############'
     cat < ~/.ssh/id_ed25519.pub
-}
-
-instalar_curl()
-{
-    echo '#Se instala CURL'
-    sudo apt install curl
+    salir
 }
 
 instalar_zsh()
@@ -74,12 +89,6 @@ instalar_powerlevel_10k()
     source ~/.zshrc
     exec "$SHELL"
     #p10k configure
-}
-
-instalar_screenfetch()
-{
-    echo '#Se instala Screenfetch'
-    sudo apt-get install screenfetch -y
 }
 
 instalar_python_pip_ipython()
@@ -122,18 +131,13 @@ instalar_ssh_server()
     sudo apt-get install openssh-server -y
 }
 
-descargar_cefpython3()
-{
-    wget "https://1drv.ms/u/s!Ak_8_gxFb-nTmF-oN0d9rkMtdCat?e=KXMAJw&download=1"
-}
-
 comandos_basicos()
 {
     echo '#Se usan comandos básicos'
     actualizar
     instalar_curl
     instalar_screenfetch
-    source ~/.bashrc
+    source ~/.zshrc
 }
 
 git()
@@ -143,8 +147,9 @@ git()
 }
 
 #comandos_basicos
-descargar_cefpython3
-#git
+#descargar_cefpython3
+#actualizar_git
+#configurar_git
 #instalar_zsh
 #instalar_oh_my_zsh
 #instalar_powerlevel_10k
