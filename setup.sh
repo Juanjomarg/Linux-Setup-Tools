@@ -76,8 +76,6 @@ add_git()
 
 configure_git()
 {
-
-
     echo $'\n####\nConfiguring git\n####\n '
 
     read -p "Provide Git username: " gitusername
