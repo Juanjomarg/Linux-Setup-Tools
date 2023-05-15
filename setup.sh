@@ -118,6 +118,7 @@ install_zsh()
     chsh -s $(which zsh)
     echo $'\nCleaning up\n '
     pause_script
+    echo $'\n##########################\nCLOSE THE TERMINAL\n##########################\n '
     exit_script
 }
 
@@ -130,13 +131,13 @@ install_oh_my_zsh()
     source ~/.zshrc
     echo $'\nCleaning up\n '
     pause_script
+    echo $'\n##########################\nCLOSE THE TERMINAL\n##########################\n '
     exit_script
 }
 
 clone_fonts()
 {
-    mkdir ~/fonts
-    cd ~/Powerlevel10kfonts/
+    mkdir ~/Powerlevel10kfonts || cd ~/Powerlevel10kfonts/
     wget https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Bold%20Italic.ttf
     wget https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Bold.ttf
     wget https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Italic.ttf
@@ -162,6 +163,8 @@ install_powerlevel_10k()
     rm -rf ~/Powerlevel10kfonts/
     exec "$SHELL"
     pause_script
+    echo $'\n##########################\nCLOSE THE TERMINAL\n##########################\n '
+    exit_script
     #p10k configure
 }
 
