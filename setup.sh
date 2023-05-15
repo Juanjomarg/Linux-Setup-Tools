@@ -141,13 +141,13 @@ clone_fonts()
 
 install_powerlevel_10k()
 {
+    current=$(pwd)
     echo $'\n####\nInstalling powerlevel 10k...\n####\n '
     echo $'\nCloning fonts\n '
     clone_fonts
     echo $'\nPlease install all fonts from the folder about to open\n '
     pause_script
-    explorer.exe .
-    cd ..
+    explorer.exe ~/Powerlevel10kfonts/
     echo $'\nGetting repo\n '
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     echo $'\nAdding to ~/.zshrc\n '
