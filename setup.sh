@@ -155,7 +155,6 @@ install_powerlevel_10k()
     echo $'\nUpdating .zshrc\n '
     source ~/.zshrc
     echo $'\nCleaning up\n '
-    rm -rf ~/Powerlevel10kfonts/
     exec "$SHELL"
     pause_script
     echo $'\n##########################\nCLOSE THE TERMINAL\n##########################\n '
