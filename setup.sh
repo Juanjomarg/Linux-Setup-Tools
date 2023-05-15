@@ -137,19 +137,22 @@ clone_fonts()
     wget -P ~/Powerlevel10kfonts https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Italic.ttf
     echo $'\n####\nCloning font 4: Regular\n####\n '
     wget -P ~/Powerlevel10kfonts https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Regular.ttf
-    
-    #cmd.exe /C start ~/Powerlevel10kfonts/
 }
 
 install_powerlevel_10k()
 {
     current=$(pwd)
+    power_fonts=~/Powerlevel10kfonts
     echo $'\n####\nInstalling powerlevel 10k...\n####\n '
     echo $'\nCloning fonts\n '
     clone_fonts
     echo $'\nPlease install all fonts from the folder about to open\n '
     pause_script
-    explorer.exe ~/Powerlevel10kfonts/
+    cd $power_fonts
+    explorer.exe .
+    cmd.exe /C start $power_fonts/MesloLGS NF Bold Italic.ttf
+    cd $current
+    pause_script
     echo $'\nGetting repo\n '
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     echo $'\nAdding to ~/.zshrc\n '
@@ -157,6 +160,7 @@ install_powerlevel_10k()
     echo $'\nUpdating .zshrc\n '
     source ~/.zshrc
     echo $'\nCleaning up\n '
+    rm -rf $power_fonts
     exec "$SHELL"
     pause_script
     echo $'\n##########################\nCLOSE THE TERMINAL\n##########################\n '
