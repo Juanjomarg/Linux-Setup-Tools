@@ -137,7 +137,7 @@ clone_fonts()
 {
     mkdir fonts
     cd fonts/
-    wget -r -np -R https://github.com/Juanjomarg/setup/tree/main/fonts
+    wget -r -np -R "index.html*" https://github.com/Juanjomarg/setup/tree/main/fonts
 }
 
 install_powerlevel_10k()
