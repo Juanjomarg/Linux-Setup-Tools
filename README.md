@@ -12,7 +12,7 @@ This shell script was made to make setting up linux terminals for the first time
 ### 1. Install wget if not on pc
 
 ```
-sudo apt get wget -y
+sudo apt install wget -y
 ```
 
 ### 2. Clone the setup.sh script to your computer.
