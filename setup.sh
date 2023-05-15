@@ -136,7 +136,7 @@ install_oh_my_zsh()
 clone_fonts()
 {
     mkdir ~/fonts
-    cd ~/fonts/
+    cd ~/Powerlevel10kfonts/
     wget https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Bold%20Italic.ttf
     wget https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Bold.ttf
     wget https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Italic.ttf
@@ -159,6 +159,7 @@ install_powerlevel_10k()
     echo $'\nUpdating .zshrc\n '
     source ~/.zshrc
     echo $'\nCleaning up\n '
+    rm -rf ~/Powerlevel10kfonts/
     exec "$SHELL"
     pause_script
     #p10k configure
