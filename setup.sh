@@ -127,11 +127,16 @@ install_oh_my_zsh()
 
 clone_fonts()
 {
-    mkdir ~/Powerlevel10kfonts || cd ~/Powerlevel10kfonts/
-    wget https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Bold%20Italic.ttf
-    wget https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Bold.ttf
-    wget https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Italic.ttf
-    wget https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Regular.ttf
+    echo $'\nCreating folder on ~/Powerlevel10kfonts\n '
+    mkdir ~/Powerlevel10kfonts
+    echo $'\n####\nCloning font 4: Bold Italic\n####\n '
+    wget -P ~/Powerlevel10kfonts https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Bold%20Italic.ttf
+    echo $'\n####\nCloning font 4: Bold\n####\n '
+    wget -P ~/Powerlevel10kfonts https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Bold.ttf
+    echo $'\n####\nCloning font 4: Italic\n####\n '
+    wget -P ~/Powerlevel10kfonts https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Italic.ttf
+    echo $'\n####\nCloning font 4: Regular\n####\n '
+    wget -P ~/Powerlevel10kfonts https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Regular.ttf
 }
 
 install_powerlevel_10k()
