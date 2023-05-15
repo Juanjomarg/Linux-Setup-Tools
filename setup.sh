@@ -135,9 +135,12 @@ install_oh_my_zsh()
 
 clone_fonts()
 {
-    mkdir fonts
-    cd fonts/
-    wget -r -np -R "index.html*" https://github.com/Juanjomarg/setup/tree/main/fonts
+    mkdir ~/fonts
+    cd ~/fonts/
+    wget https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Bold%20Italic.ttf
+    wget https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Bold.ttf
+    wget https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Italic.ttf
+    wget https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Regular.ttf
 }
 
 install_powerlevel_10k()
