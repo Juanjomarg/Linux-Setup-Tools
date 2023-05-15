@@ -111,7 +111,7 @@ configure_git()
 
 install_zsh()
 {
-    echo '\n####\nInstalling SZH...\n####\n '
+    echo $'\n####\nInstalling SZH...\n####\n '
     echo $'\nAttempting to install zsh\n '
     sudo apt install zsh -y
     echo $'\nChanging shell\n '
@@ -123,7 +123,7 @@ install_zsh()
 
 install_oh_my_zsh()
 {
-    echo '\n####\nInstalling Ohmyszh...\n####\n '
+    echo $'\n####\nInstalling Ohmyszh...\n####\n '
     echo $'\nObtaining script\n '
     sh -c  "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -y
     echo $'\nUpdating .zshrc\n '
@@ -135,7 +135,7 @@ install_oh_my_zsh()
 
 install_powerlevel_10k()
 {
-    echo '\n####\nInstalling powerlevel 10k...\n####\n '
+    echo $'\n####\nInstalling powerlevel 10k...\n####\n '
     echo $'\nGetting repo\n '
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     echo $'\nAdding to ~/.zshrc\n '
@@ -150,7 +150,7 @@ install_powerlevel_10k()
 
 install_python_pip_ipython()
 {
-    echo '\n####\nInstalling python3,pip and ipython...\n####\n '
+    echo $'\n####\nInstalling python3,pip and ipython...\n####\n '
     sudo apt install python3 python3-pip ipython3 -y
     echo $'\nCleaning up\n '
     pause_script
@@ -158,7 +158,7 @@ install_python_pip_ipython()
 
 install_pyenv()
 {
-    echo '\n####\nInstalling pyenv...\n####\n '
+    echo $'\n####\nInstalling pyenv...\n####\n '
     curl https://pyenv.run | zsh
     echo $'\nAttempting to add pyenv to PATH\n '
     add_pyenv_to_path
@@ -169,7 +169,7 @@ install_pyenv()
 
 add_pyenv_to_path()
 {
-    echo '\n####\nAdding pyenv to PATH...\n####\n '
+    echo $'\n####\nAdding pyenv to PATH...\n####\n '
     echo '#Added pyenv to PATH' >> ~/.zshrc
     echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
     echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
@@ -185,7 +185,7 @@ add_pyenv_to_path()
 
 install_pyenv_build_components()
 {
-    echo '\n####\nAttempting to install pyenv build components\n####\n '
+    echo $'\n####\nAttempting to install pyenv build components\n####\n '
     sudo apt-get update; sudo apt-get install make build-essential libssl-dev zlib1g-dev \
     libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
     libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
@@ -195,7 +195,7 @@ install_pyenv_build_components()
 
 install_ssh_server()
 {
-    echo '\n####\nInstalling SSH server\n####\n '
+    echo $'\n####\nInstalling SSH server\n####\n '
     sudo apt-get install openssh-server -y
     echo $'\nCleaning up\n '
     pause_script
@@ -203,7 +203,7 @@ install_ssh_server()
 
 basic_commands()
 {
-    echo '#Basic commands'
+    echo $'\n####\nBasic commands\n####\n '
     install_curl
     install_xclip
     install_wget
