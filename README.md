@@ -1,6 +1,8 @@
-# Project Title
+# Setup tool
 
-Simple overview of use/purpose.
+Fast setup tool
+
+curl -LJO https://github.com/Juanjomarg/setup/blob/main/setup.sh
 
 ## Description
 
