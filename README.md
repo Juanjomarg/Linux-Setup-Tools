@@ -2,7 +2,7 @@
 
 Fast setup tool
 
-curl -LJO https://github.com/Juanjomarg/setup/blob/main/setup.sh
+wget https://raw.githubusercontent.com/Juanjomarg/setup/main/setup.sh
 
 ## Description
 
