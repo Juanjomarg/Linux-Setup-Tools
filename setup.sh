@@ -29,14 +29,6 @@ install_curl()
     pause_script
 }
 
-install_xclip()
-{
-    echo $'\n####\nInstalling Xclip utility\n####\n '
-    sudo apt-get install xclip -y
-    echo $'\nCleaning up\n '
-    pause_script
-}
-
 install_wget()
 {
     echo $'\n####\nInstalling Wget utility\n####\n '
@@ -225,7 +217,6 @@ basic_commands()
 {
     echo $'\n####\nBasic commands\n####\n '
     install_curl
-    install_xclip
     install_wget
     install_unzip
     install_screenfetch
