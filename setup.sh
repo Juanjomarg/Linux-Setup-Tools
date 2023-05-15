@@ -137,6 +137,8 @@ clone_fonts()
     wget -P ~/Powerlevel10kfonts https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Italic.ttf
     echo $'\n####\nCloning font 4: Regular\n####\n '
     wget -P ~/Powerlevel10kfonts https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Regular.ttf
+    
+    #cmd.exe /C start ~/Powerlevel10kfonts/
 }
 
 install_powerlevel_10k()
