@@ -150,7 +150,6 @@ install_powerlevel_10k()
     pause_script
     cd $power_fonts
     explorer.exe .
-    cmd.exe /C start \\wsl.localhost\Debian\$current/$power_fonts/MesloLGS NF Bold Italic.ttf || cmd.exe .
     cd $current
     pause_script
     echo $'\nGetting repo\n '
