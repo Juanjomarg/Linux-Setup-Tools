@@ -1,157 +1,257 @@
 #!/bin/bash
 
-salir()
+exit_script()
 {
-    exec "$exit"
+    exit
 }
 
-actualizar()
+pause_script()
 {
-    echo '#Se actualiza'
+    read -p 'Press enter to exit terminal...'
+}
+
+update_linux_packages()
+{
+    echo $'\n####\nUpdating linux packages...\n####\n '
+    echo $'\nUpdating apt-get\n '
     sudo apt-get update -y && sudo apt-get upgrade -y
+    echo $'\nUpdating apt\n '
     sudo apt update -y && sudo apt upgrade -y
+    echo $'\nCleaning up\n '
+    pause_script
 }
 
-instalar_curl()
+install_curl()
 {
-    echo '#Se instala CURL'
-    sudo apt install curl
+    echo $'\n####\nInstalling Curl utility\n####\n '
+    sudo apt install curl -y
+    echo $'\nCleaning up\n '
+    pause_script
 }
 
-instalar_screenfetch()
+install_xclip()
 {
-    echo '#Se instala Screenfetch'
+    echo $'\n####\nInstalling Xclip utility\n####\n '
+    sudo apt-get install xclip -y
+    echo $'\nCleaning up\n '
+    pause_script
+}
+
+install_wget()
+{
+    echo $'\n####\nInstalling Wget utility\n####\n '
+    sudo apt-get install wget -y
+    echo $'\nCleaning up\n '
+    pause_script
+}
+
+install_unzip()
+{
+    echo $'\n####\nInstalling Zip utility\n####\n '
+    sudo apt-get install unzip -y
+    echo $'\nCleaning up\n '
+    pause_script
+}
+
+install_screenfetch()
+{
+    echo $'\n####\nInstalling Screenfetch utility\n####\n '
     sudo apt-get install screenfetch -y
+    echo $'\nCleaning up\n '
+    pause_script
 }
 
-descargar_cefpython3()
+remove_git()
 {
-    google-chrome "https://1drv.ms/u/s!Ak_8_gxFb-nTmF-oN0d9rkMtdCat?e=KXMAJw&download=1"
+    echo $'\n####\nRemoving old version of git\n####\n '
+    sudo apt remove git -y || sudo apt autoremove -y
+    echo $'\nCleaning up\n '
+    pause_script
 }
 
-instalar_aptitude_package_manager()
+add_git()
 {
-    echo '#Se instala aptitude'
-    sudo apt install aptitude
-}
-
-actualizar_git()
-{
-    echo '#Se actualiza git'
-    sudo apt remove git -y
+    echo $'\n####\nInstalling git\n####\n '
+    echo $'\nAdding repository\n '
     sudo add-apt-repository ppa:git-core/ppa -y
+    echo $'\nInstalling git\n '
     sudo apt-get install git -y
+    echo $'\nGetting git version\n '
     git --version
-    salir
+    echo $'\nCleaning up\n '
+    pause_script
 }
 
-configurar_git()
+configure_git()
 {
-    echo '#Se configura git'
-    git config --global user.name "Juanjomarg"
-    echo '#Se configura el siguiente usuario como usuario de git:'
-    git config --global user.name
-    
-    git config --global user.email "juanj.martinezg96@gmail.com"
-    echo '#Se configura el siguiente correo como correo de git:'
-    git config --global user.email
 
-    echo '#Se crea una llave SSH para GitHub'
-    ssh-keygen -t ed25519 -C "juanj.martinezg96@gmail.com"
+
+    echo $'\n####\nConfiguring git\n####\n '
+
+    read -p "Provide Git username: " gitusername
+    git config --global user.name $gitusername
+    echo $'git username set: -> ' $gitusername
+    echo $""
+
+    read -p "Provide Git email: " gitemail
+    git config --global user.email $gitemail
+    echo $'git email set: -----> ' $gitemail
+    echo $""
+
+    echo $'\nCreating SSH Key\n '
+    ssh-keygen -t ed25519 -C $gitemail
     eval "$(ssh-agent -s)"
     ssh-add ~/.ssh/id_ed25519
-    echo '############# Copie la siguiente clave y péguela en GitHub #############'
-    cat < ~/.ssh/id_ed25519.pub
-    salir
+    echo $'\n############# Copy and paste the following text onto the ssh textbox on github #############'
+    cat < ~/.ssh/id_ed25519.pub || xclip
+
+    echo $'\nCleaning up\n '
+    pause_script
 }
 
-instalar_zsh()
+install_zsh()
 {
-    echo '#Se instala zsh'
+    echo '\n####\nInstalling SZH...\n####\n '
+    echo $'\nAttempting to install zsh\n '
     sudo apt install zsh -y
+    echo $'\nChanging shell\n '
     chsh -s $(which zsh)
-    salir
+    echo $'\nCleaning up\n '
+    pause_script
+    exit_script
 }
 
-instalar_oh_my_zsh()
+install_oh_my_zsh()
 {
-    echo '#Se instala oh my zsh'
+    echo '\n####\nInstalling Ohmyszh...\n####\n '
+    echo $'\nObtaining script\n '
     sh -c  "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -y
+    echo $'\nUpdating .zshrc\n '
     source ~/.zshrc
-    salir
+    echo $'\nCleaning up\n '
+    pause_script
+    exit_script
 }
 
-instalar_powerlevel_10k()
+install_powerlevel_10k()
 {
-    echo '#Se instala powerlevel 10k'
+    echo '\n####\nInstalling powerlevel 10k...\n####\n '
+    echo $'\nGetting repo\n '
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    echo $'\nAdding to ~/.zshrc\n '
     sed -i -e 's,ZSH_THEME="robbyrussell",ZSH_THEME="powerlevel10k/powerlevel10k",g' ~/.zshrc
+    echo $'\nUpdating .zshrc\n '
     source ~/.zshrc
+    echo $'\nCleaning up\n '
     exec "$SHELL"
+    pause_script
     #p10k configure
 }
 
-instalar_python_pip_ipython()
+install_python_pip_ipython()
 {
-    echo '#Se instala pip'
+    echo '\n####\nInstalling python3,pip and ipython...\n####\n '
     sudo apt install python3 python3-pip ipython3 -y
+    echo $'\nCleaning up\n '
+    pause_script
 }
 
-instalar_pyenv()
+install_pyenv()
 {
-    echo '#Se instala pyenv'
+    echo '\n####\nInstalling pyenv...\n####\n '
     curl https://pyenv.run | zsh
-    salir
+    echo $'\nAttempting to add pyenv to PATH\n '
+    add_pyenv_to_path
+    echo $'\nCleaning up\n '
+    pause_script
+    exit_script
 }
 
-anadir_pyenv_a_path()
+add_pyenv_to_path()
 {
-    echo '#Añade pyenv a PATH'    
-    echo '#Se añade pyenv a PATH' >> ~/.zshrc
+    echo '\n####\nAdding pyenv to PATH...\n####\n '
+    echo '#Added pyenv to PATH' >> ~/.zshrc
     echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
     echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
     echo 'eval "$(pyenv init -)"' >> ~/.zshrc
-    instalar_pyenv_build_components
+    echo $'\nUpdating .zshrc\n '
     source ~/.zshrc
+    echo $'\nAttempting to install build components\n '
+    install_pyenv_build_components
+    echo $'\nCleaning up\n '
     exec "$SHELL"
-    
+    pause_script
 }
 
-instalar_pyenv_build_components()
+install_pyenv_build_components()
 {
-    echo '#Se instala pyenv build components'
+    echo '\n####\nAttempting to install pyenv build components\n####\n '
     sudo apt-get update; sudo apt-get install make build-essential libssl-dev zlib1g-dev \
     libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
     libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+    echo $'\nCleaning up\n '
+    pause_script
 }
 
-instalar_ssh_server()
+install_ssh_server()
 {
-    echo '#Se instala SSH server'
+    echo '\n####\nInstalling SSH server\n####\n '
     sudo apt-get install openssh-server -y
+    echo $'\nCleaning up\n '
+    pause_script
 }
 
-comandos_basicos()
+basic_commands()
 {
-    echo '#Se usan comandos básicos'
-    actualizar
-    instalar_curl
-    instalar_screenfetch
-    source ~/.zshrc
+    echo '#Basic commands'
+    install_curl
+    install_xclip
+    install_wget
+    install_unzip
+    install_screenfetch
+    echo $'\n '
+    screenfetch
+    pause_script
 }
 
-git()
+menu()
 {
-    actualizar_git
-    configurar_git
+    echo $'\n####\nMain Menu\n####\n '
+    PS3=$'\nSelect an option from the menu: '
+
+    items=(
+"Update Linux"
+"Basic utils"
+"remove Git"
+"update Git"
+"configure Git"
+"Install Zsh"
+"Install OhMySzh"
+"Install Powerlevel10k"
+"Install Python"
+"Install Pyenv"
+"SSH")
+
+    while true; do
+        select item in "${items[@]}" Quit
+        do
+            case $REPLY in
+                1) echo "Selected #$REPLY: $item";update_linux_packages; break;;
+                2) echo "Selected #$REPLY: $item";basic_commands; break;;
+                3) echo "Selected #$REPLY: $item";remove_git; break;;
+                4) echo "Selected #$REPLY: $item";add_git; break;;
+                5) echo "Selected #$REPLY: $item";configure_git; break;;
+                6) echo "Selected #$REPLY: $item";install_zsh; break;;
+                7) echo "Selected #$REPLY: $item";install_oh_my_zsh; break;;
+                8) echo "Selected #$REPLY: $item";install_powerlevel_10k; break;;
+                9) echo "Selected #$REPLY: $item";install_python_pip_ipython; break;;
+                10) echo "Selected #$REPLY: $item";install_pyenv; break;;
+                10) echo "Selected #$REPLY: $item";install_ssh_server; break;;
+                $((${#items[@]}+1))) echo $'\nYou have decided to exit the script!!!, Good Bye\n '; break 2;;
+                *) echo "Ooops - unknown choice $REPLY"; break;
+            esac
+        done
+    done
 }
 
-#comandos_basicos
-#descargar_cefpython3
-#actualizar_git
-#configurar_git
-#instalar_zsh
-#instalar_oh_my_zsh
-#instalar_powerlevel_10k
-#instalar_pyenv
-#anadir_pyenv_a_path
+menu
