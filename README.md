@@ -1,46 +1,38 @@
 # Setup tool
 
-Fast setup tool
+This shell script was made to make setting up linux terminals for the first time quick and easy. It downloads all the basic tools and installs them. Use the menu to choose what to install and press enter to proceed. WIP
 
+## Usage
+
+-1. Install wget if not on pc
+
+```
+sudo apt get wget -y
+```
+
+-2. Clone the setup.sh script to your computer.
+
+```
 wget https://raw.githubusercontent.com/Juanjomarg/setup/main/setup.sh
-
-## Description
-
-An in-depth paragraph about your project and overview of use.
-
-## Getting Started
-
-### Dependencies
-
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
-
-### Installing
-
-* How/where to download your program
-* Any modifications needed to be made to files/folders
-
-### Executing program
-
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
 ```
 
-## Help
+-3. Give execution permissions
 
-Any advise for common problems or issues.
 ```
-command to run if program contains helper info
+chmod +x setup.sh
 ```
 
+-4. Run script
+
+```
+./setup.sh
+```
 ## Authors
 
 Contributors names and contact info
 
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+Juan José Martínez
+[@juandesigned](https://instagram.com/juandesigned)
 
 ## Version History
 
@@ -52,13 +44,4 @@ ex. [@DomPizzie](https://twitter.com/dompizzie)
 
 ## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
-
-## Acknowledgments
-
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+This project is licensed under the CC License
