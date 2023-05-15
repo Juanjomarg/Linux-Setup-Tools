@@ -45,6 +45,14 @@ install_unzip()
     pause_script
 }
 
+install_xclip()
+{
+    echo $'\n####\nInstalling Xclip utility\n####\n '
+    sudo apt-get install xclip -y
+    echo $'\nCleaning up\n '
+    pause_script
+}
+
 install_screenfetch()
 {
     echo $'\n####\nInstalling Screenfetch utility\n####\n '
@@ -93,7 +101,7 @@ configure_git()
     eval "$(ssh-agent -s)"
     ssh-add ~/.ssh/id_ed25519
     echo $'\n############# Copy and paste the following text onto the ssh textbox on github #############'
-    cat < ~/.ssh/id_ed25519.pub || xclip
+    cat < ~/.ssh/id_ed25519.pub && xclip
 
     echo $'\nCleaning up\n '
     pause_script
