@@ -9,25 +9,25 @@ This shell script was made to make setting up linux terminals for the first time
 3. Give execution permissions
 4. Run script
 
-### Install wget if not on pc
+### 1. Install wget if not on pc
 
 ```
 sudo apt get wget -y
 ```
 
-### Clone the setup.sh script to your computer.
+### 2. Clone the setup.sh script to your computer.
 
 ```
 wget https://raw.githubusercontent.com/Juanjomarg/setup/main/setup.sh
 ```
 
-### Give execution permissions
+### 3. Give execution permissions
 
 ```
 chmod +x setup.sh
 ```
 
-### Run script
+### 4. Run script
 
 ```
 ./setup.sh
