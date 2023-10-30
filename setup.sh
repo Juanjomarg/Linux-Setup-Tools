@@ -45,14 +45,6 @@ install_unzip()
     pause_script
 }
 
-install_xclip()
-{
-    echo $'\n####\nInstalling Xclip utility\n####\n '
-    sudo apt-get install xclip -y
-    echo $'\nCleaning up\n '
-    pause_script
-}
-
 install_screenfetch()
 {
     echo $'\n####\nInstalling Screenfetch utility\n####\n '
@@ -101,7 +93,7 @@ configure_git()
     eval "$(ssh-agent -s)"
     ssh-add ~/.ssh/id_ed25519
     echo $'\n############# Copy and paste the following text onto the ssh textbox on github #############'
-    cat < ~/.ssh/id_ed25519.pub && xclip
+    cat < ~/.ssh/id_ed25519.pub
 
     echo $'\nCleaning up\n '
     pause_script
@@ -197,12 +189,14 @@ install_pyenv()
 add_pyenv_to_path()
 {
     echo $'\n####\nAdding pyenv to PATH...\n####\n '
-    echo '#Added pyenv to PATH' >> ~/.zshrc
-    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
-    echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
-    echo 'eval "$(pyenv init -)"' >> ~/.zshrc
-    echo $'\nUpdating .zshrc\n '
-    source ~/.zshrc
+
+    echo '#Added pyenv to PATH' >> ~/.bashrc
+    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+    echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+    echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+
+    echo $'\nUpdating .bashrc\n '
+    source ~/.bashrc
     echo $'\nAttempting to install build components\n '
     install_pyenv_build_components
     echo $'\nCleaning up\n '
@@ -213,9 +207,11 @@ add_pyenv_to_path()
 install_pyenv_build_components()
 {
     echo $'\n####\nAttempting to install pyenv build components\n####\n '
-    sudo apt-get update; sudo apt-get install make build-essential libssl-dev zlib1g-dev \
-    libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+
+    sudo apt update; sudo apt install build-essential libssl-dev zlib1g-dev \
+    libbz2-dev libreadline-dev libsqlite3-dev curl \
     libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+
     echo $'\nCleaning up\n '
     pause_script
 }
@@ -233,10 +229,8 @@ basic_commands()
     echo $'\n####\nBasic commands\n####\n '
     install_curl
     install_wget
-    install_unzip
-    install_screenfetch
+
     echo $'\n '
-    screenfetch
     pause_script
 }
 
