@@ -13,7 +13,6 @@ This shell script was made to make setting up linux terminals for the first time
 
 ```
 sudo apt update
-sudo apt upgrade -y
 sudo apt install wget -y ; 
 wget https://raw.githubusercontent.com/Juanjomarg/setup/main/setup.sh ; 
 chmod +x setup.sh ;
