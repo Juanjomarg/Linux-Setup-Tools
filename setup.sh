@@ -190,6 +190,7 @@ install_logiops()
     sudo apt install logiops -v
     sudo systemctl enable logid
     sudo cp ./logid.cfg /etc/logid.cfg
+    sudo logid -v
 }
 
 install_flatpak()
