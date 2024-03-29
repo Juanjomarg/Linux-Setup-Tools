@@ -109,10 +109,12 @@ pick_and_customize_shell() {
         if command -v "$shell_to_install" &> /dev/null; then
             echo $'\n####\nSetting up default shell\n####\n '
             chsh -s "$(which $shell_to_install)"
+	    sudo cp ./.zshrc ~/.zshrc
         else
             echo $'\n####\nInstalling selected shell\n####\n '
             sudo apt install -y "$shell_to_install"
             chsh -s "$(which $shell_to_install)"
+	    sudo cp ./.zshrc ~/.zshrc
         fi
     fi
     pause_script
@@ -183,17 +185,23 @@ install_pyenv_build_components()
     pause_script
 }
 
+install_logiops()
+{
+    sudo apt install logiops -y
+    sudo cp ./logid.cfg /etc/logid.cfg
+}
+
 menu()
 {
     echo $'\n####\nMain Menu\n####\n '
     PS3=$'\nSelect an option from the menu: '
 
     items=(
-"Update Linux"
-"Install or update Git"
-"Configure Git"
-"Change Shell"
-"Install Python and Pyenv"
+"Update"
+"GIT"
+"Shell"
+"Python and Pyenv"
+"Logiops"
 )
 
     while true; do
@@ -204,6 +212,7 @@ menu()
                 2) echo "Selected #$REPLY: $item";pick_and_customize_shell; break;;
                 3) echo "Selected #$REPLY: $item";check_and_install_git; break;;
                 4) echo "Selected #$REPLY: $item";install_python_pip_ipython; break;;
+		5) echo "Selected #$REPLY: $item";install_logiops;break;;
                 $((${#items[@]}+1))) echo $'\nYou have decided to exit the script!!!, Good Bye\n '; break 2;;
                 *) echo "Ooops - unknown choice $REPLY"; break;
             esac
