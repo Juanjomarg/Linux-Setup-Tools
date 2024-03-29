@@ -125,6 +125,7 @@ install_python_pip_ipython()
 {
     echo $'\n####\nInstalling python3,pip and ipython...\n####\n '
     sudo apt install python3 python3-pip ipython3 -y
+    install_pyenv
     echo $'\nCleaning up\n '
     pause_script
 }
@@ -134,8 +135,8 @@ install_pyenv() {
     curl https://pyenv.run | $SHELL
     echo $'\nAttempting to add pyenv to PATH\n '
     add_pyenv_to_path
-    echo $'\nCleaning up\n '
-    pause_script
+    echo $'\nAttempting to install build components\n '
+    install_pyenv_build_components
     exit_script
 }
 
@@ -168,9 +169,6 @@ add_pyenv_to_path() {
         echo "$PYENV_INIT_SCRIPT"
     fi
 
-    echo $'\nAttempting to install build components\n '
-    install_pyenv_build_components
-    echo $'\nCleaning up\n '
     exec "$SHELL"
     pause_script
 }
@@ -182,8 +180,6 @@ install_pyenv_build_components()
     sudo apt update; sudo apt install build-essential libssl-dev zlib1g-dev \
     libbz2-dev libreadline-dev libsqlite3-dev curl \
     libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-
-    echo $'\nCleaning up\n '
     pause_script
 }
 
@@ -197,8 +193,7 @@ menu()
 "Install or update Git"
 "Configure Git"
 "Change Shell"
-"Install Python"
-"Install Pyenv"
+"Install Python and Pyenv"
 )
 
     while true; do
@@ -206,11 +201,9 @@ menu()
         do
             case $REPLY in
                 1) echo "Selected #$REPLY: $item";update_linux_packages; break;;
-                2) echo "Selected #$REPLY: $item";check_and_install_git; break;;
-                3) echo "Selected #$REPLY: $item";configure_git; break;;
-                4) echo "Selected #$REPLY: $item";pick_and_customize_shell; break;;
-                5) echo "Selected #$REPLY: $item";install_python_pip_ipython; break;;
-                6) echo "Selected #$REPLY: $item";install_pyenv; break;;
+                2) echo "Selected #$REPLY: $item";pick_and_customize_shell; break;;
+                3) echo "Selected #$REPLY: $item";check_and_install_git; break;;
+                4) echo "Selected #$REPLY: $item";install_python_pip_ipython; break;;
                 $((${#items[@]}+1))) echo $'\nYou have decided to exit the script!!!, Good Bye\n '; break 2;;
                 *) echo "Ooops - unknown choice $REPLY"; break;
             esac
