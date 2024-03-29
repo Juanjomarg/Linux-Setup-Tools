@@ -197,6 +197,13 @@ install_logiops()
     sudo cp ./logid.cfg /etc/logid.cfg
 }
 
+install_flatpak()
+{
+    sudo apt install flatpak -y
+    sudo apt install gnome-software-plugin-flatpak
+    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+}
+
 menu()
 {
     echo $'\n####\nMain Menu\n####\n '
@@ -205,6 +212,7 @@ menu()
     items=(
 "Update"
 "Shell"
+"Flatpak"
 "GIT"
 "Python and Pyenv"
 "Logiops"
@@ -216,6 +224,7 @@ menu()
             case $REPLY in
                 1) echo "Selected #$REPLY: $item";update_linux_packages; break;;
                 2) echo "Selected #$REPLY: $item";pick_and_customize_shell; break;;
+                2) echo "Selected #$REPLY: $item";install_flatpak; break;;
                 3) echo "Selected #$REPLY: $item";check_and_install_git; break;;
                 4) echo "Selected #$REPLY: $item";install_python_pip_ipython; break;;
 		5) echo "Selected #$REPLY: $item";install_logiops;break;;
