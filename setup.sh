@@ -32,58 +32,21 @@ install_curl_and_wget() {
 
 update_linux_packages()
 {
-    echo $'\n####\nUpdating Linux Packages\n####\n '
-    install_curl_and_wget
-    PS3=$'\nChoose package manager for update: '
-    options=("Update using apt" "Update using apt-get" "Quit")
-
-    select option in "${options[@]}"; do
-        case $REPLY in
-            1)
-                echo $'\nUpdating with apt\n '
-                sudo apt update -y
-                sudo apt upgrade -y
-                break
-                ;;
-            2)
-                echo $'\nUpdating with apt-get\n '
-                sudo apt-get update -y
-                sudo apt-get upgrade -y
-                break
-                ;;
-            3)
-		echo $'\n##########################\nDid not perform any updates or upgrades\n##########################\n '
-                break
-                ;;
-            *)
-                echo "Invalid option"
-                ;;
-        esac
-    done
-}
-
-check_and_add_git_ppa()
-{
-    if ! grep -q "^deb .*git-core/ppa" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
-        echo $'\n####\nAdding Git PPA\n####\n '
-        sudo add-apt-repository ppa:git-core/ppa
-        sudo apt update
-    else
-        echo $'\n####\nGit PPA is already added\n####\n '
-    fi
+	sudo apt update -y
+	sudo apt upgrade -y
 }
 
 check_and_install_git()
 {
-    check_and_add_git_ppa
-
     if command -v git &> /dev/null; then
         echo $'\n####\nGit is already installed. Updating...\n####\n '
         sudo apt update
         sudo apt upgrade -y git
+	configure_git
     else
         echo $'\n####\nGit is not installed. Installing...\n####\n '
         sudo apt install -y git
+	configure_git
     fi
 }
 
@@ -116,7 +79,7 @@ pick_and_customize_shell() {
     echo $'\n####\nShell Picker\n####\n '
 
     PS3=$'\nChoose a shell or customization option: '
-    options=("Bash" "Customize Bash" "Zsh" "Customize Zsh" "Fish" "Customize Fish" "Quit")
+    options=("Bash" "Zsh" "Fish" "Quit")
 
     select option in "${options[@]}"; do
         case $REPLY in
@@ -125,26 +88,14 @@ pick_and_customize_shell() {
                 break
                 ;;
             2)
-                submenu_bash_customization
-                break
-                ;;
-            3)
                 shell_to_install="zsh"
                 break
                 ;;
-            4)
-                submenu_zsh_customization
-                break
-                ;;
-            5)
+            3)
                 shell_to_install="fish"
                 break
                 ;;
-            6)
-                submenu_fish_customization
-                break
-                ;;
-            7)
+            4)
                 echo $'\nExiting shell picker\n'
                 break
                 ;;
@@ -169,153 +120,6 @@ pick_and_customize_shell() {
     exit_script
 }
 
-submenu_bash_customization() {
-    echo $'\n####\nBash Customization Submenu\n####\n '
-
-    PS3=$'\nChoose an option for Bash customization: '
-    bash_submenu_options=("Install Powerline for Bash" "Quit")
-
-    select bash_submenu_option in "${bash_submenu_options[@]}"; do
-        case $REPLY in
-            1)
-                echo $'\n####\nInstalling Powerline for Bash\n####\n '
-                sudo apt install -y powerline
-                # Add any additional customization steps for Powerline here
-                echo $'\nCleaning up\n '
-                pause_script
-                break
-                ;;
-            2)
-                echo $'\nExiting Bash customization submenu\n'
-                break
-                ;;
-            *)
-                echo "Invalid option"
-                ;;
-        esac
-    done
-}
-
-submenu_zsh_customization() {
-    echo $'\n####\nZsh Submenu\n####\n '
-
-    PS3=$'\nChoose an option for Zsh: '
-    submenu_options=("Install Oh My Zsh" "Install PowerLevel 10K" "Install Both" "Quit")
-
-    select submenu_option in "${submenu_options[@]}"; do
-        case $REPLY in
-            1)
-                echo $'\n####\nInstalling Oh My Zsh\n####\n '
-		install_zsh
-                echo $'\nCleaning up'
-                pause_script
-                break
-                ;;
-            2)
-                echo $'\n####\nInstalling Powerlevel 10k\n####\n '
-		install_powerlevel_10k
-                echo $'\nCleaning up'
-                pause_script
-                break
-                ;;
-            3)
-                echo $'\n####\nInstalling Oh My Zsh and PowerShell\n####\n '
-		install_zsh
-		install_powerlevel_10k
-                echo $'\nCleaning up'
-                pause_script
-                break
-                ;;
-            4)
-                echo $'\nExiting Zsh submenu\n'
-                break
-                ;;
-            *)
-                echo "Invalid option"
-                ;;
-        esac
-    done
-}
-
-install_zsh()
-{
-        sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -y
-	source ~/.zshrc
-}
-
-install_powerlevel_10k()
-{
-        echo $'\n####\nInstalling Power Level 10k\n####\n '
-	current=$(pwd)
-	power_fonts=~/Powerlevel10kfonts
-	echo $'\n####\nInstalling powerlevel 10k...\n####\n '
-	echo $'\nCloning fonts\n '
-	clone_fonts
-	echo $'\nPlease install all fonts from the folder about to open\n '
-	pause_script
-	cd $power_fonts
-	explorer.exe .
-	cd $current
-	pause_script
-	echo $'\nGetting repo\n '
-	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-	echo $'\nAdding to ~/.zshrc\n '
-	sed -i -e 's,ZSH_THEME="robbyrussell",ZSH_THEME="powerlevel10k/powerlevel10k",g' ~/.zshrc
-	echo $'\nUpdating .zshrc\n '
-	source ~/.zshrc
-	echo $'\nCleaning up\n '
-	rm -rf $power_fonts
-	exec "$SHELL"
-	pause_script
-	echo $'\n##########################\nCLOSE THE TERMINAL\n##########################\n '
-	exit_script
-	#p10k configure
-}
-
-clone_fonts() {
-    echo $'\nCreating folder on ~/Powerlevel10kfonts\n '
-    mkdir -p ~/Powerlevel10kfonts
-
-    fonts=(
-        "Bold Italic: https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Bold%20Italic.ttf"
-        "Bold: https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Bold.ttf"
-        "Italic: https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Italic.ttf"
-        "Regular: https://github.com/Juanjomarg/setup/raw/main/fonts/MesloLGS%20NF%20Regular.ttf"
-    )
-
-    for font in "${fonts[@]}"; do
-        IFS=":" read -r font_name font_url <<< "$font"
-        echo $'\n####\nCloning font: '"$font_name"$'\n####\n '
-        wget -P ~/Powerlevel10kfonts "$font_url"
-    done
-}
-
-submenu_fish_customization() {
-    echo $'\n####\nFish Customization Submenu\n####\n '
-
-    PS3=$'\nChoose an option for Fish customization: '
-    fish_submenu_options=("Install Oh My Fish" "Quit")
-
-    select fish_submenu_option in "${fish_submenu_options[@]}"; do
-        case $REPLY in
-            1)
-                echo $'\n####\nInstalling Oh My Fish\n####\n '
-                curl -L https://get.oh-my.fish | fish
-                # Add any additional customization steps for Oh My Fish here
-                echo $'\nCleaning up\n '
-                pause_script
-                break
-                ;;
-            2)
-                echo $'\nExiting Fish customization submenu\n'
-                break
-                ;;
-            *)
-                echo "Invalid option"
-                ;;
-        esac
-    done
-}
 
 install_python_pip_ipython()
 {
@@ -392,7 +196,7 @@ menu()
 "Update Linux"
 "Install or update Git"
 "Configure Git"
-"Select or Customize shell"
+"Change Shell"
 "Install Python"
 "Install Pyenv"
 )
