@@ -187,7 +187,13 @@ install_pyenv_build_components()
 
 install_logiops()
 {
-    sudo apt install logiops -y
+    sudo apt install cmake libevdev-dev libudev-dev libconfig++-dev
+    git clone https://github.com/PixlOne/logiops.git
+    cd logiops
+    mkdir build
+    cd build
+    cmake ..
+    make
     sudo cp ./logid.cfg /etc/logid.cfg
 }
 
@@ -198,8 +204,8 @@ menu()
 
     items=(
 "Update"
-"GIT"
 "Shell"
+"GIT"
 "Python and Pyenv"
 "Logiops"
 )
