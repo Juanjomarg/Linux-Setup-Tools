@@ -187,13 +187,8 @@ install_pyenv_build_components()
 
 install_logiops()
 {
-    sudo apt install cmake libevdev-dev libudev-dev libconfig++-dev
-    git clone https://github.com/PixlOne/logiops.git
-    cd logiops
-    mkdir build
-    cd build
-    cmake ..
-    make
+    sudo apt install logiops -v
+    sudo systemctl enable logid
     sudo cp ./logid.cfg /etc/logid.cfg
 }
 
@@ -224,10 +219,10 @@ menu()
             case $REPLY in
                 1) echo "Selected #$REPLY: $item";update_linux_packages; break;;
                 2) echo "Selected #$REPLY: $item";pick_and_customize_shell; break;;
-                2) echo "Selected #$REPLY: $item";install_flatpak; break;;
-                3) echo "Selected #$REPLY: $item";check_and_install_git; break;;
-                4) echo "Selected #$REPLY: $item";install_python_pip_ipython; break;;
-		5) echo "Selected #$REPLY: $item";install_logiops;break;;
+                3) echo "Selected #$REPLY: $item";install_flatpak; break;;
+                4) echo "Selected #$REPLY: $item";check_and_install_git; break;;
+                5) echo "Selected #$REPLY: $item";install_python_pip_ipython; break;;
+		6) echo "Selected #$REPLY: $item";install_logiops;break;;
                 $((${#items[@]}+1))) echo $'\nYou have decided to exit the script!!!, Good Bye\n '; break 2;;
                 *) echo "Ooops - unknown choice $REPLY"; break;
             esac
